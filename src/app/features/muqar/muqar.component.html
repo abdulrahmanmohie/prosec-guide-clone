@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row pt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          
+          <p class="fCairo fs-5">البحث عن نيابه</p>
+        </div>
+        <div class="card-content">
+          <form [formGroup]="searchForm" autocomplete="off" novalidate class="p-4">
+            <div class="me-3" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutAlign.xs="center center"
+              fxLayoutAlign.sm="center center" fxLayoutGap="3%">
+
+              <app-input-select [control]="governorateName" [data]="governorates" [fieldName]="'المحافظة'" fxFlex="25"
+              fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName"  (searchEvent)="search()"
+                  ></app-input-select>
+
+                <app-input-select [control]="cityArabicName" [data]="citys" [fieldName]="'المدينة'" fxFlex="25"
+                fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName"  (searchEvent)="search()"
+                 ></app-input-select>
+
+                 <app-input-text [arabicCharOnly]="true" [control]="name" [type]="'text'" [noWhiteSpace]="true"
+                 [fieldName]="'اسم المقر'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                 [maxLength]="50" (keyup)="search()"></app-input-text>
+
+                  <app-input-select [control]="muqarTypeName" [data]="MuqarTypes" [fieldName]="'نوع المقر'" fxFlex="25"
+                  fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName"  (searchEvent)="search()"
+                 ></app-input-select>
+                
+                 <!-- <button class="delete-all fCairo fs-5" (click)="clearForm()" fxFlex="15" fxFlex.xs="45"> الغاء البحث </button> -->
+            </div>
+          </form>
+          <br />
+          <div class="row mt-3 mb-5" dir="rtl">
+            <div class="mat-elevation-z8">
+              <app-data-grid (loadData)="pageChanged($event)" [columns]="columns" [data]="muqar"
+                [displayedColumns]="displayedColumns" [displayedColumnFilter]="displayedColumnFilter" [page]="page">
+                <ng-template let-item>
+                  <a mat-icon-button (click)="navigate(item.id)"><mat-icon class="icon-edit fs-5 " matTooltip="تعديل"
+                      color="primary">mode_edit</mat-icon></a>
+                  <a mat-icon-button (click)="delete(item.id)"><mat-icon class="delete-icon fs-5 mt-1 " matTooltip="حذف"
+                      color="warn">delete_forever</mat-icon></a>
+                </ng-template>
+                
+              </app-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

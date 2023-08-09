@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row pt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
+            <p class="fCairo fs-5"> {{ !form.controls.id.value ? 'اضافه  نوع مقر ' : 'تعديل نوع المقر' }}</p>
+          </div>
+          <div class="card-content mt-5">
+            <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
+              <div
+                class="me-3"
+                fxLayout="row wrap"
+                fxLayoutAlign="start center"
+                fxLayoutAlign.xs="center center"
+                fxLayoutAlign.sm="center center"
+                fxLayoutGap="3%"
+              >
+
+                <app-input-text
+                  [arabicCharOnly]="true"
+                  [control]="arabicName"
+                  [type]="'text'"
+                  [noWhiteSpace]="true"
+                  [fieldName]="'نوع المقر'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  [maxLength]="50"
+                ></app-input-text>
+              </div>
+            </form>
+  
+            <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="3%">
+              <button class="add fCairo fs-5" (click)="save()" fxFlex="15"  fxFlex.xs="45" [disabled]="submitted">
+                {{ form.controls.id.value ? 'تعديل' : 'اضافة' }}
+              </button>
+              <button class="delete-all fCairo fs-5" (click)="clearForm()"  fxFlex="15" fxFlex.xs="45"> مسح </button>
+            </div>
+  
+            <br />
+            <div class="row mt-5 mb-5" dir="rtl" >
+              <div class="mat-elevation-z8">
+                <app-data-grid
+                  (loadData)="pageChanged($event)"
+                  [columns]="columns"
+                  [data]="muqarType"
+                  [displayedColumns]="displayedColumns"
+                  [totalRows]="totalRows"
+                  [page]="page"
+                >
+                  <ng-template let-item>
+                    <a mat-icon-button (click)="fetch(item)" matTooltip="تعديل"
+                      ><mat-icon class="icon-edit fs-5 " matTooltip="تعديل" color="primary" >mode_edit</mat-icon></a
+                    >
+                    <a mat-icon-button (click)="delete(item.id)" matTooltip="حذف"
+                      ><mat-icon class="delete-icon fs-5 mt-1 " matTooltip="حذف" color="warn" >delete_forever</mat-icon></a
+                    >
+                  </ng-template>
+                </app-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
